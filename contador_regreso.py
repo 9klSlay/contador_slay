@@ -1,10 +1,8 @@
 import tkinter as tk
 from datetime import datetime
 
-# Fecha objetivo
 target_9k = datetime(2025, 12, 25, 6, 28)
 
-# Función para calcular tiempo restante
 def get_time_parts(target):
     now = datetime.now()
     remaining = target - now
@@ -16,21 +14,18 @@ def get_time_parts(target):
     minutes, seconds = divmod(rem, 60)
     return (months, days, hours, minutes, seconds)
 
-# Función para actualizar el contador
 def update_timer():
     parts = get_time_parts(target_9k)
     if all(v == 0 for v in parts):
         for lbl in labels_9k:
             lbl.config(text="00")
-        # Cambiar el texto final
         msg_text.config(text="¡Ya volvió ")
-        msg_name.config(text="9k_lSlay", fg="#b300ff")  # morado
+        msg_name.config(text="9k_lSlay", fg="#b300ff")
         return
     for i, val in enumerate(parts):
         labels_9k[i].config(text=f"{val:02}")
     root.after(1000, update_timer)
 
-# Activar o desactivar que la ventana quede arriba de todo
 def toggle_topmost():
     global topmost
     topmost = not topmost
@@ -40,14 +35,12 @@ def toggle_topmost():
     else:
         btn_topmost.config(text="Fijar ventana arriba", bg="black", fg="#00ff00")
 
-# Crear ventana principal
 root = tk.Tk()
 root.title("Regreso de 9k_lSlay")
 root.configure(bg="black")
 root.geometry("700x500")
 topmost = False
 
-# Botón para fijar ventana arriba
 btn_topmost = tk.Button(
     root,
     text="Fijar ventana arriba",
@@ -61,7 +54,6 @@ btn_topmost = tk.Button(
 )
 btn_topmost.place(relx=1, x=-10, y=10, anchor="ne")
 
-# Función para crear un contador (reutilizable)
 def crear_contador(padre, color):
     labels = []
     textos = ["Meses", "Días", "Horas", "Minutos", "Segundos"]
@@ -77,10 +69,8 @@ def crear_contador(padre, color):
         labels.append(num)
     return labels
 
-# Crear el contador principal
 labels_9k = crear_contador(root, "#00ff00")
 
-# Texto bajo el contador (con partes separadas)
 msg_frame = tk.Frame(root, bg="black")
 msg_frame.pack(pady=10)
 
@@ -97,13 +87,12 @@ msg_name = tk.Label(
     msg_frame,
     text="9k_lSlay",
     font=("Consolas", 18, "bold"),
-    fg="#b300ff",  # morado
+    fg="#b300ff", 
     bg="black"
 )
 msg_name.pack(side="left")
 
-# Iniciar el contador
 update_timer()
 
-# Mostrar la ventana
 root.mainloop()
+
